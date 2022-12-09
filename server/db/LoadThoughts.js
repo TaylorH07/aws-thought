@@ -19,12 +19,26 @@ const allUsers = JSON.parse(
 
 // loop over the allUsers array and create the params object with the elements in the array
 allUsers.forEach(user => {
-    const params = {
-        TableName: "Thoughts",
-        Item: {
-            "username": user.username,
-            "createdAt": user.CreatedAt,
-            "thought": user.thought
+  const params = {
+    TableName: "Thoughts",
+    Item: {
+      username: user.username,
+      createdAt: user.createdAt,
+      thought: user.thought,
+    },
+  };
+
+  //make a call to the database with the service interface object, dynamodb
+  dynamodb.put(params, (err, data) => {
+        if (err) {
+        console.error(
+            "Unable to add thought",
+            user.username,
+            ". Error JSON:",
+            JSON.stringify(err, null, 2)
+        );
+        } else {
+            console.log("PutItem succeeded:", user.username);
         }
-    }
-})
+    });
+});
