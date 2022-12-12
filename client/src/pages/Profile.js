@@ -10,6 +10,7 @@ const Profile = props => {
     createdAt: '', 
     thought: '',
   }]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
